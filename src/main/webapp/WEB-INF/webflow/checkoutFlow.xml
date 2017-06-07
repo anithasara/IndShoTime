@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-3.0.xsd">
+    
+	<var name="cart" class="com.niit.model.CartModel" />
+	
+     
+	 <!-- if not specified the first view state is the starting state -->
+	 <!-- <action-state id="addCartToOrder">
+	 <transition to="cartDetails" />
+	 </action-state> -->
+	 
+	 <view-state id="cartDetails" view="Cart.jsp" model="cart">
+	  <transition on="ContinueShopping" to="toContinueShopping"/>
+	   <transition on="Checkout" to="toCheckout"/>
+	 </view-state>
+	 
+	 <view-state id="toContinueShopping" view="Checkout.jsp" model="cart">
+	   <transition on="proceed" to="toproceed"/>
+	   <transition on="notproceed" to="cancelCheckout"/>
+	 </view-state>
+	 
+	 <view-state id="toproceed" view="Invoice.jsp">
+	   <transition on="invoice" to="acknowledgement"/>
+	 </view-state>
+	 
+	  <view-state id="acknowledgement" view="Acknowledge.jsp">
+	  <transition to="endstate" />
+	  </view-state>
+	  <end-state id="endstate"/>
+	 <end-state id="cancelCheckout" view="index.jsp" />
+	 
+	 
+	
+	
+	
+</flow>
